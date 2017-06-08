@@ -25,7 +25,7 @@ module Vmpooler
 
     if ENV['VMPOOLER_CONFIG']
       # Load configuration from ENV
-      parsed_config = YAML.safe_load(ENV['VMPOOLER_CONFIG'])
+      parsed_config = YAML.load_file(ENV['VMPOOLER_CONFIG'])
     else
       # Load the configuration file from disk
       config_file = File.expand_path(filepath)
@@ -84,7 +84,9 @@ module Vmpooler
   end
 
   def self.new_redis(host = 'localhost')
-    Redis.new(host: host)
+    Redis.new(host: host,
+              password: (ENV["REDIS_PASSWORD"] || nil )
+             )
   end
 
   def self.new_logger(logfile)

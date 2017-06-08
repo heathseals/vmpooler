@@ -1,0 +1,5 @@
+#!/bin/bash
+
+mkdir /var/log/vmpooler
+bundle exec ruby vmpooler
+
